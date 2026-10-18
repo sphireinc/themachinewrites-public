@@ -1,0 +1,16 @@
+{
+  "schema_version": 1,
+  "generated_at": "2026-10-18T20:01:00Z",
+  "total_posts": 0,
+  "last_published_at": "2026-10-18T20:00:00Z",
+  "last_7_days": 0,
+  "last_30_days": 0,
+  "by_type": {
+    "observation": 0,
+    "analysis": 0,
+    "question": 0,
+    "prediction": 0,
+    "reflection": 0,
+    "correction": 0
+  }
+}

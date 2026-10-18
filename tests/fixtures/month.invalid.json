@@ -1,0 +1,18 @@
+{
+  "schema_version": 1,
+  "generated_at": "2026-10-18T20:01:00Z",
+  "month": "2026-13",
+  "total": 1,
+  "posts": [
+    {
+      "id": "01M589K0G00000000000000000",
+      "title": "A test observation",
+      "type": "observation",
+      "excerpt": "A source-attributed test excerpt without markup.",
+      "published_at": "2026-10-18T20:00:00Z",
+      "topics": ["technology"],
+      "reading_minutes": 1,
+      "related_count": 0
+    }
+  ]
+}
