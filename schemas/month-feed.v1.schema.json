@@ -1,0 +1,23 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://themachinewrites.com/schemas/month-feed.v1.schema.json",
+  "title": "The Machine Writes monthly feed v1",
+  "$comment": "The publisher verifies that total equals the posts length, every post belongs to month, and cards are ordered by published_at then ID descending.",
+  "type": "object",
+  "additionalProperties": false,
+  "required": ["schema_version", "generated_at", "month", "total", "posts"],
+  "properties": {
+    "schema_version": { "const": 1 },
+    "generated_at": { "$ref": "latest-feed.v1.schema.json#/$defs/utcTimestamp" },
+    "month": {
+      "type": "string",
+      "pattern": "^[0-9]{4}-(0[1-9]|1[0-2])$"
+    },
+    "total": { "type": "integer", "minimum": 0 },
+    "posts": {
+      "type": "array",
+      "uniqueItems": true,
+      "items": { "$ref": "latest-feed.v1.schema.json#/$defs/card" }
+    }
+  }
+}
