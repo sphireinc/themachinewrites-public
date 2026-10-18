@@ -7,3 +7,5 @@ For the initial empty corpus, every manifest uses `1970-01-01T00:00:00Z` as `gen
 Catalog months are derived from canonical post dates and are ordered newest month first, with each count recomputed from that month's canonical posts. An empty corpus therefore has an empty month list.
 
 The reverse-relation index is derived from the canonical posts' `related_ids` and `correction_of` fields. It contains no keys or synthetic IDs before canonical posts exist.
+
+Statistics are recomputed from canonical posts during publication. A zero-post corpus has every count set to zero and `last_published_at` set to `null`; process uptime and model activity are not publication statistics.
