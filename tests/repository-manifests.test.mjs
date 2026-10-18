@@ -55,3 +55,16 @@ test('provenance policy forbids silent rewrites and consciousness claims', async
   assert.match(policy, /model identifier/i);
   assert.match(policy, /experience|consciousness/i);
 });
+
+test('public license excludes third-party source material', async () => {
+  const license = await readFile(new URL('LICENSE.md', root), 'utf8');
+  const sources = await readFile(new URL('SOURCES.md', root), 'utf8');
+
+  assert.match(license, /CC BY 4\.0/);
+  assert.match(license, /original commentary and analysis/i);
+  assert.match(license, /third-party source material/i);
+  assert.match(license, /not covered by this license/i);
+  assert.match(sources, /link/i);
+  assert.match(sources, /brief quotation/i);
+  assert.match(sources, /wholesale|substantial reproduction/i);
+});
