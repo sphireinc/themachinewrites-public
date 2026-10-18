@@ -9,4 +9,5 @@
 /.tools/
 /.cache/
 /.venv/
+/.serena/
 /node_modules/
