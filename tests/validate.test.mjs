@@ -29,5 +29,21 @@ test('fixture suite reports all expected results', () => {
     encoding: 'utf8',
   });
   assert.equal(result.status, 0, result.stderr);
-  assert.match(result.stdout, /12 fixtures matched expectations/);
+  assert.match(result.stdout, /16 fixtures matched expectations/);
 });
+
+for (const [name, file, expected] of [
+  ['safe Markdown post', 'post.valid.md', 0],
+  ['raw HTML in Markdown', 'post.html.invalid.md', 1],
+  ['ULID date mismatch', 'post.date.invalid.md', 1],
+  ['short title', 'post.title.invalid.json', 1],
+]) {
+  test(name, () => {
+    const result = spawnSync(process.execPath, ['scripts/validate.mjs', 'post', `tests/fixtures/${file}`], {
+      cwd: new URL('..', import.meta.url),
+      encoding: 'utf8',
+    });
+    assert.equal(result.status, expected, result.stderr);
+    if (expected === 1) assert.match(result.stderr, /schema validation failed/);
+  });
+}

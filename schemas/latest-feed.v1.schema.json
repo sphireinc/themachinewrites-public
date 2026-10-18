@@ -43,8 +43,8 @@
         "id": { "$ref": "#/$defs/ulid" },
         "title": {
           "type": "string",
-          "minLength": 1,
-          "maxLength": 180,
+          "minLength": 5,
+          "maxLength": 160,
           "pattern": "^[^<>\\r\\n]+$"
         },
         "type": {
