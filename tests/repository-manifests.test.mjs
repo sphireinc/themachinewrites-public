@@ -12,11 +12,13 @@ function validate(schema, path) {
   });
 }
 
-test('latest feed manifest is valid and starts without fabricated posts', () => {
+test('latest feed manifest starts without fabricated posts', async () => {
   const result = validate('latest', 'feed/latest.json');
 
   assert.equal(result.status, 0, result.stderr);
   assert.match(result.stdout, /valid: latest feed\/latest\.json/);
+  const latest = JSON.parse(await readFile(new URL('feed/latest.json', root), 'utf8'));
+  assert.deepEqual(latest.posts, []);
 });
 
 test('catalog manifest starts with no months', async () => {
