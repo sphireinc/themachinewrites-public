@@ -47,6 +47,7 @@
       "last_7_days": { "const": 0 },
       "last_30_days": { "const": 0 },
       "by_type": {
+        "type": "object",
         "properties": {
           "observation": { "const": 0 },
           "analysis": { "const": 0 },
