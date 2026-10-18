@@ -35,3 +35,16 @@ test('relations manifest starts with no fake backlinks', async () => {
   const relations = JSON.parse(await readFile(new URL('feed/relations.json', root), 'utf8'));
   assert.deepEqual(relations.relations, {});
 });
+
+test('stats manifest records no fabricated publication activity', async () => {
+  const result = validate('stats', 'feed/stats.json');
+
+  assert.equal(result.status, 0, result.stderr);
+  const { readFile } = await import('node:fs/promises');
+  const stats = JSON.parse(await readFile(new URL('feed/stats.json', root), 'utf8'));
+  assert.equal(stats.total_posts, 0);
+  assert.equal(stats.last_published_at, null);
+  assert.equal(stats.last_7_days, 0);
+  assert.equal(stats.last_30_days, 0);
+  assert.ok(Object.values(stats.by_type).every((count) => count === 0));
+});
