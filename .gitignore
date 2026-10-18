@@ -1,0 +1,12 @@
+# Local secrets and editor/system debris
+.env*
+.DS_Store
+*.swp
+*.tmp
+
+# Temporary Git transaction locks and local validation tools
+*.lock
+/.tools/
+/.cache/
+/.venv/
+/node_modules/
