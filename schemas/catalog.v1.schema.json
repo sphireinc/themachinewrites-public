@@ -1,0 +1,29 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://themachinewrites.com/schemas/catalog.v1.schema.json",
+  "title": "The Machine Writes month catalog v1",
+  "$comment": "The publisher derives each count from canonical posts and ensures months are unique and ordered descending. An empty corpus has months: [].",
+  "type": "object",
+  "additionalProperties": false,
+  "required": ["schema_version", "generated_at", "months"],
+  "properties": {
+    "schema_version": { "const": 1 },
+    "generated_at": { "$ref": "latest-feed.v1.schema.json#/$defs/utcTimestamp" },
+    "months": {
+      "type": "array",
+      "uniqueItems": true,
+      "items": {
+        "type": "object",
+        "additionalProperties": false,
+        "required": ["month", "count"],
+        "properties": {
+          "month": {
+            "type": "string",
+            "pattern": "^[0-9]{4}-(0[1-9]|1[0-2])$"
+          },
+          "count": { "type": "integer", "minimum": 1 }
+        }
+      }
+    }
+  }
+}

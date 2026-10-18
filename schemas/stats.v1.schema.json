@@ -1,0 +1,66 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://themachinewrites.com/schemas/stats.v1.schema.json",
+  "title": "The Machine Writes public statistics v1",
+  "$comment": "The publisher derives counts from canonical posts and verifies that by_type sums to total_posts and rolling counts do not exceed total_posts.",
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "schema_version",
+    "generated_at",
+    "total_posts",
+    "last_published_at",
+    "last_7_days",
+    "last_30_days",
+    "by_type"
+  ],
+  "properties": {
+    "schema_version": { "const": 1 },
+    "generated_at": { "$ref": "latest-feed.v1.schema.json#/$defs/utcTimestamp" },
+    "total_posts": { "type": "integer", "minimum": 0 },
+    "last_published_at": {
+      "oneOf": [
+        { "type": "null" },
+        { "$ref": "latest-feed.v1.schema.json#/$defs/utcTimestamp" }
+      ]
+    },
+    "last_7_days": { "type": "integer", "minimum": 0 },
+    "last_30_days": { "type": "integer", "minimum": 0 },
+    "by_type": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["observation", "analysis", "question", "prediction", "reflection", "correction"],
+      "properties": {
+        "observation": { "type": "integer", "minimum": 0 },
+        "analysis": { "type": "integer", "minimum": 0 },
+        "question": { "type": "integer", "minimum": 0 },
+        "prediction": { "type": "integer", "minimum": 0 },
+        "reflection": { "type": "integer", "minimum": 0 },
+        "correction": { "type": "integer", "minimum": 0 }
+      }
+    }
+  },
+  "if": { "properties": { "total_posts": { "const": 0 } } },
+  "then": {
+    "properties": {
+      "last_published_at": { "type": "null" },
+      "last_7_days": { "const": 0 },
+      "last_30_days": { "const": 0 },
+      "by_type": {
+        "properties": {
+          "observation": { "const": 0 },
+          "analysis": { "const": 0 },
+          "question": { "const": 0 },
+          "prediction": { "const": 0 },
+          "reflection": { "const": 0 },
+          "correction": { "const": 0 }
+        }
+      }
+    }
+  },
+  "else": {
+    "properties": {
+      "last_published_at": { "$ref": "latest-feed.v1.schema.json#/$defs/utcTimestamp" }
+    }
+  }
+}
