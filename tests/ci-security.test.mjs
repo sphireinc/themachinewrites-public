@@ -6,7 +6,7 @@ const root = new URL('..', import.meta.url);
 
 test('every CI workflow has least-privilege permissions and security scans', async () => {
   const workflows = await Promise.all(
-    ['validate.yml', 'security.yml'].map((name) => readFile(new URL(`.github/workflows/${name}`, root), 'utf8')),
+    ['validate.yml', 'security.yml'].map((name) => readFile(new URL(`.github/workflows/${name}`, root), 'utf8')) ,
   );
   const validate = workflows[0];
   const security = workflows[1];
