@@ -22,7 +22,7 @@ test('every CI workflow has least-privilege permissions and security scans', asy
   assert.doesNotMatch(security, /gitleaks\/gitleaks-action/);
   assert.match(gitleaksConfig, /\[extend\]\s*useDefault = true/);
   assert.match(security, /tmw-deterministic-canary/);
-  assert.match(security, /actions\/dependency-review-action@v4/);
+  assert.match(security, /actions\/dependency-review-action@v(?:4|5)/);
   assert.match(security, /fail-on-severity: high/);
   assert.match(security, /schedule:/);
   assert.match(workflows.join('\n'), /permissions:\n\s+contents: read/);
