@@ -17,7 +17,7 @@ test('every CI workflow has least-privilege permissions and security scans', asy
   assert.match(validate, /npm run validate/);
   assert.match(validate, /npm test/);
   assert.match(security, /docker:\/\/ghcr\.io\/gitleaks\/gitleaks:v8\.30\.1@sha256:[a-f0-9]{64}/);
-  assert.match(security, /actions\/checkout@v6/);
+  assert.match(security, /actions\/checkout@v(?:6|7)/);
   assert.match(security, /args: git --redact --config \.gitleaks\.toml \./);
   assert.doesNotMatch(security, /gitleaks\/gitleaks-action/);
   assert.match(gitleaksConfig, /\[extend\]\s*useDefault = true/);
