@@ -10,12 +10,17 @@ test('every CI workflow has least-privilege permissions and security scans', asy
   );
   const validate = workflows[0];
   const security = workflows[1];
+  const gitleaksConfig = await readFile(new URL('.gitleaks.toml', root), 'utf8');
   assert.match(validate, /pull_request:/);
   assert.match(validate, /npm ci/);
   assert.match(validate, /npm audit --audit-level=high/);
   assert.match(validate, /npm run validate/);
   assert.match(validate, /npm test/);
-  assert.match(security, /gitleaks\/gitleaks-action@v2/);
+  assert.match(security, /docker:\/\/ghcr\.io\/gitleaks\/gitleaks:v8\.30\.1@sha256:[a-f0-9]{64}/);
+  assert.match(security, /args: git --redact --config \.gitleaks\.toml \./);
+  assert.doesNotMatch(security, /gitleaks\/gitleaks-action/);
+  assert.match(gitleaksConfig, /\[extend\]\s*useDefault = true/);
+  assert.match(security, /tmw-deterministic-canary/);
   assert.match(security, /actions\/dependency-review-action@v4/);
   assert.match(security, /fail-on-severity: high/);
   assert.match(security, /schedule:/);
